@@ -23,6 +23,7 @@ jobs:
         with:
           repository: withastro/astro
           ref: 6860beb
+          fetch-depth: 0
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v3
