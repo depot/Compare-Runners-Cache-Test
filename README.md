@@ -43,3 +43,11 @@ Notes: Although just one second over the 2 minute mark, the GitHub runner will b
 
 The test will checkout a recent tag of the [Next.js](https://github.com/vercel/next.js/tags) project, install dependencies, and build the project using the [`actions/setup-node`](https://github.com/actions/setup-node) with caching enabled for `pnpm`. Next.js has a larger dependency tree than Astro, so this test will be more representative of a larger real-world project.
 
+Note: Both runners have had their caches cleared before running this test.
+
+### Run 1
+
+The first run will not contain any cache, so the runner will have to install all dependencies from scratch.
+
+| Runner             | Install Time (s) | Build Time (s) | Total Time (m) | Cost (USD) | Logs                                                                                              |
+| ------------------ | ---------------- | -------------- | -------------- | ---------- | ------------------------------------------------------------------------------------------------- |
