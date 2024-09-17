@@ -54,6 +54,15 @@ The first run will not contain any cache, so the runner will have to install all
 | ubuntu-24.04       | 53.8s            | 105.641        | 4m 49s         | $0.04      | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10911079312/job/30282961574) |
 | depot-ubuntu-22.04 | 40.5             | 61.658         | 3m 32s         | $0.014     | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10911079312/job/30282961917) |
 
+Notes: Depot is 24% faster to download and install dependencies and builds over 60% faster while being 65% cheaper.
+
 ### Run 2
 
 The second run will pull the dependencies from the cache created in the first run.
+
+| Runner             | Install Time (s) | Build Time (s) | Total Time (m) | Cost (USD) | Logs                                                                                              |
+| ------------------ | ---------------- | -------------- | -------------- | ---------- | ------------------------------------------------------------------------------------------------- |
+| ubuntu-24.04       | 16.8             | 109.457        | 4m 6s          | $0.04      | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10911289557/job/30283616457) |
+| depot-ubuntu-22.04 | 10.7             | 59.139         | 3m 1s          | $0.012     | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10911289557/job/30283616770) |
+
+With cache enabled, Depot was 57% faster to download and unpack the cache.
