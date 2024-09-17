@@ -1,0 +1,40 @@
+name: CompareCache
+
+on: push
+
+jobs:
+  build:
+    name: "Build: ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 3
+    strategy:
+      matrix:
+        OS: [ubuntu-22.04, depot-ubuntu-22.04 ]
+        NODE_VERSION: [18]
+      fail-fast: true
+    steps:
+      # Disable crlf so all OS can share the same Turbo cache
+      # https://github.com/actions/checkout/issues/135
+      - name: Disable git crlf
+        run: git config --global core.autocrlf false
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: withastro/astro
+          ref: 6860beb
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup node@${{ matrix.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
