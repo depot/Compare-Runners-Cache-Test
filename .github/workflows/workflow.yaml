@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         OS: [ubuntu-22.04, depot-ubuntu-22.04 ]
-        NODE_VERSION: [18]
+        NODE_VERSION: [20]
       fail-fast: true
     steps:
       # Disable crlf so all OS can share the same Turbo cache
@@ -21,8 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: withastro/astro
-          ref: astro@5.0.0-beta.1
+          repository: vercel/next.js
+          ref: v14.2.12
           fetch-depth: 0
 
       - name: Setup PNPM

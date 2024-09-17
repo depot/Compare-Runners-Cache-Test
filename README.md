@@ -36,4 +36,10 @@ The second run will pull the dependencies from the cache created in the first ru
 | ubuntu-24.04       | 11.1s            | 86.819         | 2m 1s          |       $0.024     | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910569666/job/30281295191) |
 | depot-ubuntu-22.04 | 4.8s             | 45.236s        | 1m 35s         |      $0.0063      | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910569666/job/30281295485) |
 
-Notes: Although just one second over the 2 minute mark, the GitHub runner will be charged at 3 minutes. With caching enabled. Depot was still able to download and unpack the cache 56.7% faster than the GitHub runner. 
+Notes: Although just one second over the 2 minute mark, the GitHub runner will be charged at 3 minutes. With caching enabled. Depot was still able to download and unpack the cache 56.7% faster than the GitHub runner.
+
+## Benchmarks #2 (Larger Cache)
+
+
+The test will checkout a recent tag of the [Next.js](https://github.com/vercel/next.js/tags) project, install dependencies, and build the project using the [`actions/setup-node`](https://github.com/actions/setup-node) with caching enabled for `pnpm`. Next.js has a larger dependency tree than Astro, so this test will be more representative of a larger real-world project.
+
