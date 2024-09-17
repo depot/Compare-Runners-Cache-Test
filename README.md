@@ -22,7 +22,7 @@ The first run will not contain any cache, so the runner will have to install all
 | Runner             | Install Time (s) | Build Time (s) | Total Time (m) | Cost (USD) | Logs                                                                                              |
 | ------------------ | ---------------- | -------------- | -------------- | ---------- | ------------------------------------------------------------------------------------------------- |
 | ubuntu-24.04       | 17.7             | 81.706         | 2m 12s         | $0.024     | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910152335/job/30279957077) |
-| depot-ubuntu-22.04 | 10.1             | 44.481         | 1m 40s         | $0.0066     | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910152335/job/30279957438) |
+| depot-ubuntu-22.04 | 10.1             | 44.481         | 1m 40s         | $0.0066    | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910152335/job/30279957438) |
 
 
 Notes: Depot's faster network speeds allowed for 70% faster download of dependencies. Though the number of CPU cores is the same, Depot was able to build the project over 45% faster than the default GitHub runner.
@@ -31,10 +31,10 @@ Notes: Depot's faster network speeds allowed for 70% faster download of dependen
 
 The second run will pull the dependencies from the cache created in the first run.
 
-| Runner             | Install Time (s) | Build Time (s) | Total Time (m) | Cost (USD) | Logs  |
-| ------------------ | ---------------- | -------------- | -------------- | ---------- | ----- |
-| ubuntu-24.04       | 11.1s            | 86.819         | 2m 1s          |       $0.024     | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910569666/job/30281295191) |
-| depot-ubuntu-22.04 | 4.8s             | 45.236s        | 1m 35s         |      $0.0063      | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910569666/job/30281295485) |
+| Runner             | Install Time (s) | Build Time (s) | Total Time (m) | Cost (USD) | Logs                                                                                              |
+| ------------------ | ---------------- | -------------- | -------------- | ---------- | ------------------------------------------------------------------------------------------------- |
+| ubuntu-24.04       | 11.1s            | 86.819         | 2m 1s          | $0.024     | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910569666/job/30281295191) |
+| depot-ubuntu-22.04 | 4.8s             | 45.236s        | 1m 35s         | $0.0063    | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10910569666/job/30281295485) |
 
 Notes: Although just one second over the 2 minute mark, the GitHub runner will be charged at 3 minutes. With caching enabled. Depot was still able to download and unpack the cache 56.7% faster than the GitHub runner.
 
@@ -51,3 +51,9 @@ The first run will not contain any cache, so the runner will have to install all
 
 | Runner             | Install Time (s) | Build Time (s) | Total Time (m) | Cost (USD) | Logs                                                                                              |
 | ------------------ | ---------------- | -------------- | -------------- | ---------- | ------------------------------------------------------------------------------------------------- |
+| ubuntu-24.04       | 53.8s            | 105.641        | 4m 49s         | $0.04      | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10911079312/job/30282961574) |
+| depot-ubuntu-22.04 | 40.5             | 61.658         | 3m 32s         | $0.014     | [🔗](https://github.com/depot/Compare-Runners-Cache-Test/actions/runs/10911079312/job/30282961917) |
+
+### Run 2
+
+The second run will pull the dependencies from the cache created in the first run.
