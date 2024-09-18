@@ -3,39 +3,65 @@ name: CompareCache
 on: push
 
 jobs:
-  build:
-    name: "Build: ${{ matrix.os }}"
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+  gather-system-info:
+    runs-on: ${{ matrix.os }}"
     strategy:
       matrix:
-        OS: [ubuntu-22.04, depot-ubuntu-22.04 ]
-        NODE_VERSION: [20]
-      fail-fast: true
+        OS: [ubuntu-22.04, depot-ubuntu-22.04]
     steps:
-      # Disable crlf so all OS can share the same Turbo cache
-      # https://github.com/actions/checkout/issues/135
-      - name: Disable git crlf
-        run: git config --global core.autocrlf false
+      - name: Gather System Information
+        run: |
+          echo "### CPU Information ###"
+          lscpu
+          echo "\n### Memory Information ###"
+          free -h
+          echo "\n### Disk Space Usage ###"
+          df -h
+          echo "\n### Operating System Details ###"
+          uname -a
+          echo "\n### CPU Details from /proc/cpuinfo ###"
+          grep 'model name' /proc/cpuinfo | uniq
+          echo "\n### Total Number of CPU Cores ###"
+          nproc
+          echo "\n### Total Number of CPU Threads ###"
+          lscpu | grep "Thread(s) per core"
+          echo "\n### Disk Details ###"
+          lsblk
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: vercel/next.js
-          ref: v14.2.12
-          fetch-depth: 0
+  # Tests concluded. Now checking system specs.
+  # build:
+  #   name: "Build: ${{ matrix.os }}"
+  #   runs-on: ${{ matrix.os }}
+  #   timeout-minutes: 60
+  #   strategy:
+  #     matrix:
+  #       OS: [ubuntu-22.04, depot-ubuntu-22.04 ]
+  #       NODE_VERSION: [20]
+  #     fail-fast: true
+  #   steps:
+  #     # Disable crlf so all OS can share the same Turbo cache
+  #     # https://github.com/actions/checkout/issues/135
+  #     - name: Disable git crlf
+  #       run: git config --global core.autocrlf false
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v3
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #       with:
+  #         repository: vercel/next.js
+  #         ref: v14.2.12
+  #         fetch-depth: 0
 
-      - name: Setup node@${{ matrix.NODE_VERSION }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.NODE_VERSION }}
-          cache: "pnpm"
+  #     - name: Setup PNPM
+  #       uses: pnpm/action-setup@v3
 
-      - name: Install dependencies
-        run: pnpm install
+  #     - name: Setup node@${{ matrix.NODE_VERSION }}
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{ matrix.NODE_VERSION }}
+  #         cache: "pnpm"
 
-      - name: Build Packages
-        run: pnpm run build
+  #     - name: Install dependencies
+  #       run: pnpm install
+
+  #     - name: Build Packages
+  #       run: pnpm run build
