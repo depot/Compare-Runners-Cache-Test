@@ -3,30 +3,57 @@ name: CompareCache
 on: push
 
 jobs:
-  gather-system-info:
+  benchmarking:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         OS: [ubuntu-22.04, depot-ubuntu-22.04]
     steps:
-      - name: Gather System Information
+      - name: Install Benchmarking Tools
         run: |
-          echo "### CPU Information ###"
-          lscpu
-          echo "\n### Memory Information ###"
-          free -h
-          echo "\n### Disk Space Usage ###"
-          df -h
-          echo "\n### Operating System Details ###"
-          uname -a
-          echo "\n### CPU Details from /proc/cpuinfo ###"
-          grep 'model name' /proc/cpuinfo | uniq
-          echo "\n### Total Number of CPU Cores ###"
-          nproc
-          echo "\n### Total Number of CPU Threads ###"
-          lscpu | grep "Thread(s) per core"
-          echo "\n### Disk Details ###"
-          lsblk
+          sudo apt-get update
+          sudo apt-get install -y sysbench fio
+
+      - name: CPU Benchmark
+        run: |
+          echo "### CPU Benchmark ###"
+          sysbench cpu --threads=$(nproc) run
+
+      - name: Memory Benchmark
+        run: |
+          echo "### Memory Benchmark ###"
+          sysbench memory --threads=$(nproc) run
+
+      - name: Disk I/O Benchmark
+        run: |
+          echo "### Disk I/O Benchmark ###"
+          fio --name=seqwrite --filename=testfile --size=1G --bs=1M --iodepth=1 --rw=write
+          fio --name=seqread --filename=testfile --size=1G --bs=1M --iodepth=1 --rw=read
+          rm testfile
+  # gather-system-info:
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       OS: [ubuntu-22.04, depot-ubuntu-22.04]
+  #   steps:
+  #     - name: Gather System Information
+  #       run: |
+  #         echo "### CPU Information ###"
+  #         lscpu
+  #         echo "\n### Memory Information ###"
+  #         free -h
+  #         echo "\n### Disk Space Usage ###"
+  #         df -h
+  #         echo "\n### Operating System Details ###"
+  #         uname -a
+  #         echo "\n### CPU Details from /proc/cpuinfo ###"
+  #         grep 'model name' /proc/cpuinfo | uniq
+  #         echo "\n### Total Number of CPU Cores ###"
+  #         nproc
+  #         echo "\n### Total Number of CPU Threads ###"
+  #         lscpu | grep "Thread(s) per core"
+  #         echo "\n### Disk Details ###"
+  #         lsblk
 
   # Tests concluded. Now checking system specs.
   # build:
